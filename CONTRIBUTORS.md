@@ -6,6 +6,8 @@
 
 OpenAI Codex assisted the initial release by drafting the summary and perspective, preparing and running the numerical model, generating the figure, and locating primary references. For the follow-up on PR #1, Codex checked the versioned Bennett and Evert texts, the Freiburg registry and the Clos paper, reran the eight numerical checks, and edited the documentation. The study reports simulations.
 
+The follow-up review in [issue #5](https://github.com/uwarring82/from-hahn-to-twirling-in-60-seconds/issues/5) identified conditional Y as the experimentally discriminating statistic and proposed the new figure. OpenAI Codex implemented the branch-resolved plot, parameter flags and regression checks, and drafted the corresponding changes to the team page and perspective.
+
 ## AI assistance
 
 | | |

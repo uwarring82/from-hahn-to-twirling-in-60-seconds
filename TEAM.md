@@ -1,44 +1,51 @@
-# From Hahn to Twirling · Team page
+# From Hahn to Twirling · Start here
 
-**Can one ion tell whether we applied two rotations in sequence or chose one rotation per shot?** We are developing a Ramsey experiment on the ²⁵Mg⁺ clock qubit to answer that question. The reviewed simulation and references are on `main`. The clock-qubit comparison and pulse-order test are proposed experiments. The optical spectra in [Clos et al., Fig. 2](https://doi.org/10.1103/PhysRevLett.112.113003) are the published starting point.
+**At 1.25 kHz, sweeping the analysis phase gives almost no fringe in the pooled shots. Has the ion lost its coherence?** Prepare a spin along +X, allow 200 µs of free evolution and log one bit per shot. A fair coin selects ordinary Ramsey (I) or Ramsey bracketed by π pulses (X). Predict what happens to the fringe when you sort by the bit. Which analysis phase would you measure first? [Post a prediction or sketch in issue #2](https://github.com/uwarring82/from-hahn-to-twirling-in-60-seconds/issues/2).
 
-[Open work](https://github.com/uwarring82/from-hahn-to-twirling-in-60-seconds/issues) · [Changes under review](https://github.com/uwarring82/from-hahn-to-twirling-in-60-seconds/pulls) · [Experimental proposal](echo_twirl_perspective.md) · [Source checks](REVIEW.md)
+<details>
+<summary>Compare your prediction with the finite-pulse model</summary>
 
-## Before group meeting
+![Simulated transverse contrast and signed Y quadrature by branch and after pooling](echo_twirl.svg)
 
-Start the spin along +X. Choose the detuning so it would acquire a quarter turn during 200 µs. Sketch the final Bloch vector for each of three experiments: a midpoint Hahn pulse with frame closure, uninterrupted precession, and precession bracketed by X pulses. Which fringes would you see if you kept the last two records separate? Which fringe would survive if you pooled them?
+With ideal pulses, branch X is Ramsey at −δ. Both branches have the same X quadrature, cos(δT), and opposite Y quadratures, ±sin(δT). At the ideal null δT = π/2, sorting by the frame bit reveals opposite Y signals. The finite-pulse prediction for that measurement is **P(+Y | I) − P(+Y | X) = 0.941 ± 0.008**, with one projection-noise standard error for 1,000 shots per branch. Each branch has about 94% transverse contrast. Their equal-weight average has contrast 0.0025. The 0.474 probability difference between echo and pooled X is a control for refocusing.
 
-![Simulated signed Ramsey X quadrature for the echo and pooled twirl](echo_twirl.svg)
+</details>
 
-The plot shows only X. At 1.25 kHz the pooled twirl crosses zero. The most informative next plot is **Y for each recorded branch**. Opposite conditional Y signals distinguish cancellation in the pooled readout from loss of coherence in each branch. Keep that distinction in mind when comparing this experiment with optical scattering.
+[Simulation and parameter record](echo_twirl.json) · [Experiment and literature](echo_twirl_perspective.md) · [Source verification](REVIEW.md) · [Open work](https://github.com/uwarring82/from-hahn-to-twirling-in-60-seconds/issues)
 
-## Reproduce the baseline
+## Reproduce or change the experiment
 
-From the repository root, in a Python environment of your choice:
+Run from the repository root in a Python environment. Each run writes the scan, parameters and figure to its own directory.
 
 ```sh
 python -m pip install -r requirements.txt
 python test_echo_twirl.py
 python echo_twirl.py --outdir build/baseline
+python echo_twirl.py --T 40e-6 --rabi 50000 --area 1.01 --jitter 100 --vis 0.95 --shots 2000 --closing -1 --outdir build/short
 ```
 
-The eight checks cover the ideal limit, the reference model values, and pulse-order scaling. The last command writes a CSV, JSON parameter record and figure. With the default same-phase closing pulse, expect echo contrast **0.9493** and pooled contrast **0.0025** at 1.25 kHz. The predicted difference in bright-state probability is **0.474 ± 0.012** for 2,000 independent shots per arm (one standard error from projection noise). The [parameter record](echo_twirl.json) lists the assumptions. The 50 kHz microwave Rabi rate is illustrative. The [Freiburg registry](https://single-25mg-plus-d679f9.pages.uni-freiburg.de/content/experiment/parameters.yaml) lists Raman carrier rates and a separate stretch-state Ramsey measurement.
+Time is in seconds and drive, detuning and rms jitter are in Hz. The code propagates H = h(drive·X + offset·Z)/2, so φ = 2πfT. A closing sign of +1 repeats the drive phase and −1 reverses it. The short run moves the nominal null to 6.25 kHz. The models assume static detuning within a shot; the clock-state pulse and jitter values are illustrative.
 
-## Pick a contribution
+## What would one run cost?
 
-| If you want to work on… | Start here | Bring back |
+One trapped ion, microwave control with a π phase switch and programmable offset, a logged frame bit, standard preparation and fluorescence readout. The spectroscopy probe stays off. Three detunings × two arms (echo and twirl) × two analysis quadratures × 2,000 shots gives **24,000 shots**, plus calibration. Multiply by the measured shot-cycle time. Randomize a balanced branch schedule or record the actual counts from a fair coin. Quote the conditional uncertainty with those counts.
+
+The [Freiburg registry](https://single-25mg-plus-d679f9.pages.uni-freiburg.de/content/experiment/parameters.yaml) assigns a no-line-trigger Ramsey time of 114 µs to the stretch-state microwave transition. If that transition is already calibrated, T = 40 µs is a possible pilot. Measure its probe-off Ramsey envelope, pulse area and echo first. Changing T alone in the script explores timing; it does not supply a stretch-state noise calibration.
+
+## Choose a contribution
+
+| Work | Starting point | Result to post |
 |---|---|---|
-| Analysis · a first contribution | [Plot the two conditional fringes, issue #2](https://github.com/uwarring82/from-hahn-to-twirling-in-60-seconds/issues/2) | A plot of both Y branches, with the pooled signal and its uncertainty |
-| Microwave control · experimental design | [Design the matched pulse sequences, issue #3](https://github.com/uwarring82/from-hahn-to-twirling-in-60-seconds/issues/3) | A pulse table, clock-state calibration sources, and a timing control for the extra π pulses |
-| Theory or simulation · postdoc or student project | [Test the noncommuting extension, issue #4](https://github.com/uwarring82/from-hahn-to-twirling-in-60-seconds/issues/4) | An order-reversal plot and a check of the sign and factor of two between a single-order signal and the difference |
-| Literature · journal club | [Read the verification table](REVIEW.md) | A primary-source figure or equation, its version, and the specific claim it supports or challenges |
+| [Reproduce the Ramsey null and plot the two conditional fringes · #2](https://github.com/uwarring82/from-hahn-to-twirling-in-60-seconds/issues/2) | About an hour with Python and the [branch CSV](echo_twirl.csv) | Reconstruct the branch and pooled contrasts at 0, 1.25 and 2.50 kHz. Include the sample counts and an uncertainty on the signed Y statistic. |
+| [Design the clock-qubit Ramsey control sequence · #3](https://github.com/uwarring82/from-hahn-to-twirling-in-60-seconds/issues/3) | An afternoon for a pulse table; apparatus access for calibration | Give each pulse phase and duration. Compare the bracketed X branch with a pulse-free reversal of the synthesizer offset. Physical X conjugation also flips unknown Z offsets; changing the synthesizer flips only the programmed one. Bound residual detuning and account for the extra pulse time. |
+| [Test the noncommuting order-reversal prediction · #4](https://github.com/uwarring82/from-hahn-to-twirling-in-60-seconds/issues/4) | An afternoon with Bloch rotations and the [order-reversal test](test_echo_twirl.py) | Plot the Z signals for the two orders and find the range of T where the leading coefficient agrees with exact propagation to 5%. Include the pulse convention. |
 
-Comment on an issue to take it up or find a partner. Put a first plot or derivation in the thread so colleagues can question assumptions early. For a change to the shared code or text, open a branch and link its pull request to the issue. Include the command, figure axes and units, and identify which inputs came from measurement. Use the repository’s **Watch** menu for project updates or **Subscribe** on an individual issue to follow one experiment.
+For a change to code or text, link a pull request to the issue and give the command and inputs needed to reproduce it. Record contributions in [CONTRIBUTORS.md](CONTRIBUTORS.md) with the contributor’s preferred attribution. For a manuscript, discuss authorship with contributors based on the work actually carried into the paper. Readers with repository access can subscribe to one issue or use **Watch** for project updates.
 
-## Three papers to read together
+## Three questions that lead to a number
 
-1. What rephases in Hahn’s original spin ensemble? [Hahn, *Spin Echoes* (1950)](https://doi.org/10.1103/PhysRev.80.580)
-2. What object did the authors call a “twirl”? Look at §3.1, item 1, p. 22. [Bennett et al., April 1996 preprint](https://arxiv.org/pdf/quant-ph/9604024v1#page=22)
-3. What does randomizing an echo-derived sequence change in a measured spectrum? [Wang et al., single-NV sensing (2019)](https://doi.org/10.1103/PhysRevLett.122.200403)
+- **Can we resolve a tilt after randomizing its sign?** For ideal short evolutions with a weak transverse drive, the two orders tilt +X toward ±Z by θ ≃ εδT²/4 (angular frequencies). The individual tilt is order T²; pooling yields a leading transverse contrast loss θ²/2, order T⁴. Determine the smallest T at which each effect is resolvable for a stated shot budget and calibrated pulse error.
+- **How much does the bit tell us?** For ideal commuting dynamics at π/2, the +X output purity is 1 in either branch and 1/2 after pooling. The unitarity of the ideal pooled dephasing map is 1/3; this channel property averages over input directions. What extra preparations and shots would estimate it with a standard error of 0.05? [Wallman et al.](https://doi.org/10.1088/1367-2630/17/11/113020)
+- **Where is the record?** Compare the classical frame bit, a logged detuning monitor and a detected scattered photon. Ion-only measurements cannot discriminate mechanisms that produce identical reduced channels. Choose an auxiliary record, specify a detection model and calculate the record efficiency needed for a stated precision. [Clos et al.](https://doi.org/10.1103/PhysRevLett.112.113003) · [Akerman et al.](https://doi.org/10.1103/PhysRevLett.109.103601) · [Uys et al.](https://doi.org/10.1103/PhysRevLett.105.200401)
 
-The [full perspective](echo_twirl_perspective.md) connects those questions to NMR, neutral atoms, photons, ions, diamond spins and superconducting circuits. The [bibliography](references.bib) contains the citation records.
+For journal club, follow the development from spin rephasing to bilateral twirling, randomized paths on a control group and randomized sensing sequences. [Hahn (1950)](https://doi.org/10.1103/PhysRev.80.580) · [Bennett et al. (1996), §3.1](https://arxiv.org/pdf/quant-ph/9604024v1#page=22) · [Viola and Knill (2005)](https://doi.org/10.1103/PhysRevLett.94.060502) · [Wang et al. (2019)](https://doi.org/10.1103/PhysRevLett.122.200403)

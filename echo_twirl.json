@@ -4,9 +4,9 @@
   "generated_by": {
     "script": "echo_twirl.py",
     "version": "0.2.0",
-    "python": "3.13.18",
-    "numpy": "2.5.3",
-    "matplotlib": "3.11.2"
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "matplotlib": "3.10.8"
   },
   "license": "CC-BY-4.0",
   "data_file": "echo_twirl.csv",
@@ -54,6 +54,12 @@
   },
   "derived": {
     "null_detuning_hz": 1250.0,
+    "conditional_y_probability_difference": 0.94094,
+    "conditional_y_standard_error": 0.007571,
+    "conditional_y_branch_shots": {
+      "I": 1000,
+      "X": 1000
+    },
     "echo_x_at_null": 0.949316,
     "twirl_x_at_null": 0.001947,
     "echo_transverse_at_null": 0.949316,

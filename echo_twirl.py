@@ -117,7 +117,7 @@ def signals(offset, p=DEFAULT):
 
 
 def null_detuning(p=DEFAULT):
-    """Detuning of the first pooled-twirl zero, cos(2 pi f T) = 0, in Hz."""
+    """Detuning of the first ideal pooled-twirl zero, cos(2 pi f T) = 0, in Hz."""
     return 1 / (4 * p.T)
 
 
@@ -130,14 +130,23 @@ def shot_noise(offset, p=DEFAULT):
     """Echo-minus-twirl difference in P(+X outcome) and its projection-noise
     standard error for ``p.shots`` independent binary shots per arm."""
     echo, twirl = signals(offset, p)
-    pe, pt = (1 + echo[0]) / 2, (1 + twirl[0]) / 2
+    pe, pt = np.clip((np.array([echo[0], twirl[0]]) + 1) / 2, 0, 1)
     se = np.sqrt(pe * (1 - pe) / p.shots + pt * (1 - pt) / p.shots)
     return float(pe - pt), float(se)
 
 
+def conditional_y(offset, p=DEFAULT):
+    """P(+Y|I) minus P(+Y|X) and binomial SE for a balanced allocation."""
+    i, x = branches(offset, p)
+    pi, px = np.clip((np.array([i[1], x[1]]) + 1) / 2, 0, 1)
+    n_i = p.shots // 2
+    n_x = p.shots - n_i
+    return float(pi - px), float(np.sqrt(pi * (1 - pi) / n_i + px * (1 - px) / n_x))
+
+
 def check_ideal_limit(p=DEFAULT):
     """Zero-duration, error-free pulses: echo -> +X, twirl -> cos(2 pi f T)."""
-    ideal = replace(IDEAL, T=p.T)
+    ideal = replace(IDEAL, T=p.T, rabi=IDEAL.rabi * DEFAULT.T / p.T)
     for f in np.linspace(0, 2 / p.T * 0.25, 5):
         echo, twirl = signals(f, ideal)
         expected = [1, 0, np.cos(2 * np.pi * f * p.T), 0]
@@ -164,7 +173,7 @@ def write_csv(path, table):
         writer = csv.writer(handle, lineterminator="\n")
         writer.writerow(COLUMNS)
         for row in table:
-            writer.writerow([f"{row[0]:.1f}"]
+            writer.writerow([str(float(row[0]))]
                             + [f"{round(float(x), 6) + 0.0:.6f}" for x in row[1:]])
 
 
@@ -172,6 +181,7 @@ def write_metadata(path, p, versions):
     f0 = null_detuning(p)
     echo, twirl = signals(f0, p)
     diff, se = shot_noise(f0, p)
+    y_diff, y_se = conditional_y(f0, p)
     meta = {
         "title": "Hahn echo versus {I, X} channel twirl: predicted Bloch vectors",
         "description": (
@@ -182,7 +192,7 @@ def write_metadata(path, p, versions):
                          **versions},
         "license": "CC-BY-4.0",
         "data_file": "echo_twirl.csv",
-        "figure_file": "echo_twirl.svg",
+        "figure_file": "echo_twirl.svg" if "matplotlib" in versions else None,
         "parameters": {k: {"value": v, "unit": PARAM_UNITS[k]}
                        for k, v in asdict(p).items()},
         "columns": {
@@ -194,6 +204,9 @@ def write_metadata(path, p, versions):
         },
         "derived": {
             "null_detuning_hz": f0,
+            "conditional_y_probability_difference": round(y_diff, 6),
+            "conditional_y_standard_error": round(y_se, 6),
+            "conditional_y_branch_shots": {"I": p.shots // 2, "X": p.shots - p.shots // 2},
             "echo_x_at_null": round(float(echo[0]), 6),
             "twirl_x_at_null": round(float(twirl[0]), 6),
             "echo_transverse_at_null": round(transverse(echo), 6),
@@ -207,28 +220,35 @@ def write_metadata(path, p, versions):
         handle.write("\n")
 
 
-def write_figure(path, table):
+def write_figure(path, table, p=DEFAULT):
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
 
     plt.rcParams["svg.hashsalt"] = "echo_twirl"  # reproducible element ids
-    fig, ax = plt.subplots(figsize=(7.4, 3.8), layout="constrained")
-    for column, label, color in [(1, "Hahn echo", "#175878"),
-                                 (4, "Channel twirl", "#ad452b")]:
-        ax.plot(table[:, 0] / 1000, table[:, column], color=color, lw=2.5,
-                label=label)
-    ax.axhline(0, color="0.6", lw=0.8)
-    ax.axvline(null_detuning() / 1000, color="0.6", ls=":")
-    ax.set(xlabel="Imposed detuning (kHz)", ylabel="Signed Ramsey X quadrature",
-           ylim=(-1.05, 1.05))
-    ax.legend(frameon=False)
+    plt.rcParams["font.family"] = "DejaVu Sans"
+    fig, (contrast, y_axis) = plt.subplots(1, 2, figsize=(9.4, 4.0), layout="constrained")
+    freq = table[:, 0] / 1000
+    for column, label, color, style in [
+        (1, "Hahn echo", "#29485a", "-"),
+        (7, "Branch I", "#00866b", "--"),
+        (10, "Branch X", "#965298", "-."),
+        (4, "Pooled", "#cd5415", ":"),
+    ]:
+        x, y = table[:, column], table[:, column + 1]
+        contrast.plot(freq, np.hypot(x, y), style, color=color, label=label, lw=2)
+        y_axis.plot(freq, y, style, color=color, lw=2)
+    for ax in (contrast, y_axis):
+        ax.axvline(null_detuning(p) / 1000, color="0.65", ls=":", zorder=0)
+        ax.set_xlabel("Detuning (kHz)")
+    contrast.set(ylabel="Transverse contrast", ylim=(-0.045, 1.04))
+    y_axis.set(ylabel="Signed Y quadrature", ylim=(-1.05, 1.05))
+    contrast.legend(frameon=False, loc="lower left", fontsize=9)
     fig.savefig(path, metadata={
-        "Date": None,  # no timestamp: identical inputs give identical bytes
-        "Title": "Predicted signed Ramsey X quadrature versus imposed detuning",
-        "Description": ("Finite-pulse Bloch-model prediction for a Hahn echo "
-                        "and a pooled {I, X} channel twirl. Model output, not "
-                        "measured data. Source data: echo_twirl.csv."),
+        "Date": None,
+        "Title": "Conditional Ramsey fringes and the pooled record",
+        "Description": ("Model predictions of transverse contrast and signed Y "
+                        "for the Hahn echo, branches I and X, and their equal-weight pool."),
         "Creator": "Ulrich Warring",
         "Rights": "CC BY 4.0",
         "Source": "echo_twirl.py",
@@ -243,10 +263,24 @@ def main(argv=None):
                         help="directory for the CSV, JSON and SVG outputs")
     parser.add_argument("--no-figure", action="store_true",
                         help="skip the SVG (no Matplotlib needed)")
+    parser.add_argument("--T", type=float, default=DEFAULT.T, help="free evolution time in seconds")
+    parser.add_argument("--rabi", type=float, default=DEFAULT.rabi, help="resonant Rabi rate in Hz")
+    parser.add_argument("--area", type=float, default=DEFAULT.area, help="actual/nominal pulse area")
+    parser.add_argument("--jitter", type=float, default=DEFAULT.jitter, help="rms shot-static jitter in Hz")
+    parser.add_argument("--vis", type=float, default=DEFAULT.vis, help="common visibility (0 to 1)")
+    parser.add_argument("--shots", type=int, default=DEFAULT.shots, help="shots per arm per quadrature")
+    parser.add_argument("--closing", type=int, choices=(-1, 1), default=DEFAULT.closing,
+                        help="closing pulse drive sign (+1 same, -1 reversed)")
     args = parser.parse_args(argv)
-    p = DEFAULT
-
-    offsets = np.linspace(0, 2500, 101)
+    if not all(np.isfinite(v) for v in (args.T, args.rabi, args.area, args.jitter, args.vis)):
+        parser.error("physical parameters must be finite")
+    if args.T <= 0 or args.rabi <= 0 or args.area < 0 or args.jitter < 0:
+        parser.error("T and rabi must be positive; area and jitter must be nonnegative")
+    if not 0 <= args.vis <= 1 or args.shots < 2:
+        parser.error("visibility must be in [0, 1] and shots must allow at least one per branch")
+    p = Params(T=args.T, rabi=args.rabi, area=args.area, jitter=args.jitter,
+               vis=args.vis, shots=args.shots, closing=args.closing)
+    offsets = np.linspace(0, 2 * null_detuning(p), 101)
     table = scan(offsets, p)
     print("detuning_hz  echo_x  echo_y  twirl_x  twirl_y")
     for idx in (0, 25, 50, 75, 100):
@@ -259,19 +293,22 @@ def main(argv=None):
     f0 = null_detuning(p)
     echo, twirl = signals(f0, p)
     diff, se = shot_noise(f0, p)
+    y_diff, y_se = conditional_y(f0, p)
+    print(f"P(+Y|I) - P(+Y|X): {y_diff:.3f} +/- {y_se:.3f} "
+          f"({p.shots // 2} I shots, {p.shots - p.shots // 2} X shots)")
     print(f"null at {f0:.1f} Hz: transverse contrast echo {transverse(echo):.4f}, "
           f"pooled twirl {transverse(twirl):.4f}")
     print(f"echo - twirl in P(+X) at the null: {diff:.3f} +/- {se:.3f} "
           f"({p.shots} shots per arm)")
-    inverse = replace(p, closing=-1)
-    print("with a phase-reversed closing pulse: pooled twirl contrast at the "
+    inverse = replace(p, closing=-p.closing)
+    print(f"with alternate closing sign {inverse.closing:+d}: pooled twirl contrast at the "
           f"null {transverse(signals(f0, inverse)[1]):.4f}")
 
     args.outdir.mkdir(parents=True, exist_ok=True)
     versions = {"python": platform.python_version(), "numpy": np.__version__}
     write_csv(args.outdir / "echo_twirl.csv", table)
     if not args.no_figure:
-        versions["matplotlib"] = write_figure(args.outdir / "echo_twirl.svg", table)
+        versions["matplotlib"] = write_figure(args.outdir / "echo_twirl.svg", table, p)
     write_metadata(args.outdir / "echo_twirl.json", p, versions)
 
 
