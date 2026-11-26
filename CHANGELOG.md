@@ -23,7 +23,7 @@ Review and FAIR pass. Details, evidence and open items are in [`REVIEW.md`](REVI
 
 - The text described the closing operation as the inverse of the opening one, while the model applies the same π pulse twice, so the two pulse-area errors add. The text now states the convention and gives the values for both.
 - “Visibility” (0.25%) and the tabulated signed X quadrature (0.002) at the null referred to different quantities without saying so; both are now named.
-- Evert et al.: the figure reference is now tied to a specific arXiv version (v2, Fig. 4); the previous “Fig. 7” could not be confirmed.
+- Verified Evert et al. against the arXiv v2 PDF and HTML. Figure 7(c) compares performance with randomized compiling. Figure 4 depicts a crosstalk graph. Verified Bennett v1 and the Freiburg parameter sources in the review record.
 - Biercuk et al.: the system (⁹Be⁺ crystals in a Penning trap) is now stated, since the row sits beside single-ion work.
 
 ## [0.1.0] – 2026-11-26

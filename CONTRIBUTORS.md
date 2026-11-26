@@ -2,9 +2,9 @@
 
 ## Author
 
-**Ulrich Warring**, Physikalisches Institut, Albert-Ludwigs-Universität Freiburg. Author of the initial release (commit `3f2e268`, version 0.1.0): concept, summary, perspective and proposal, simulation and figure. The author is responsible for all content of this repository, including the parts changed with AI assistance described below.
+**Ulrich Warring**, Physikalisches Institut, Albert-Ludwigs-Universität Freiburg. Author of the initial release (commit `3f2e268`, version 0.1.0): scientific question, experimental context and direction. The author is responsible for all content of this repository, including the parts changed with AI assistance described below.
 
-Tool use for the initial release is not recorded in the repository. If any was involved, it should be added here by the author.
+OpenAI Codex assisted the initial release by drafting the summary and perspective, preparing and running the numerical model, generating the figure, and locating primary references. For the follow-up on PR #1, Codex checked the versioned Bennett and Evert texts, the Freiburg registry and the Clos paper, reran the eight numerical checks, and edited the documentation. The study reports simulations.
 
 ## AI assistance
 
@@ -36,4 +36,4 @@ Claude is a tool and not an author. It cannot take responsibility for the work, 
 
 If material from this repository enters a manuscript, a statement along these lines covers the assistance recorded here:
 
-> An AI system (Claude Fable 5.2, Anthropic) was used to review the simulation code and numerical statements, to check bibliographic references, and to prepare software metadata. The author verified the output and is responsible for the content.
+> OpenAI Codex assisted with drafting, simulation, figure generation and source verification. Claude (Anthropic) assisted with code review, tests, numerical checks and software metadata.
