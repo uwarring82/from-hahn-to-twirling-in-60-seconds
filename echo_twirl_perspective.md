@@ -1,7 +1,7 @@
 # What does a spin echo average?
 ## A branch-resolved Ramsey test of Hamiltonian symmetrization and channel twirling with a single magnesium ion
 
-**Perspective and experimental proposal · discussion draft · v0.2.0 · 26 November 2026**
+**Perspective and experimental proposal · discussion draft · v0.3.0-dev.1 · 26 November 2026**
 
 ### Abstract
 

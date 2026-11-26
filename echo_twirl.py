@@ -34,7 +34,7 @@ from pathlib import Path
 import numpy as np
 from numpy.polynomial.hermite import hermgauss
 
-__version__ = "0.2.0"
+__version__ = "0.3.0-dev.1"
 
 MODES = ("echo", "I", "X")
 

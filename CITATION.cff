@@ -19,8 +19,7 @@ authors:
   - family-names: Warring
     given-names: Ulrich
     affiliation: "Physikalisches Institut, Albert-Ludwigs-Universität Freiburg"
-version: "0.2.0"
-date-released: "2026-11-26"
+version: "0.3.0-dev.1"
 repository-code: "https://github.com/uwarring82/from-hahn-to-twirling-in-60-seconds"
 url: "https://github.com/uwarring82/from-hahn-to-twirling-in-60-seconds"
 license:

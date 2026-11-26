@@ -3,7 +3,7 @@
   "description": "Finite-pulse Bloch-vector predictions for a spin prepared along +X under a static imposed detuning. Model output, not measured data; all parameters are illustrative.",
   "generated_by": {
     "script": "echo_twirl.py",
-    "version": "0.2.0",
+    "version": "0.3.0-dev.1",
     "python": "3.12.14",
     "numpy": "2.3.5",
     "matplotlib": "3.10.8"

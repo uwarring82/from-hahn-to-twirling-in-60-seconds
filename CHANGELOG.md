@@ -2,8 +2,9 @@
 
 All notable changes to this repository are recorded here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and versions follow [Semantic Versioning](https://semver.org/).
 
-## Unreleased
+## Unreleased (0.3.0-dev.1)
 
+- Linked the team’s theory questions to dedicated issues for the unitarity shot budget (#7) and auxiliary-record efficiency (#8). Issues #2–#4 now carry the time estimates and expected results from `TEAM.md`.
 - The lead figure now shows signed Y and transverse contrast by frame and after pooling. Conditional Y is the primary statistic; the X comparison remains a refocusing control.
 - Added experimental parameter flags, a scan that follows the selected interrogation time, and branch counts and Y uncertainty in the parameter record.
 - Revised the project entry page (`TEAM.md`) with a prediction exercise, run budget and contribution guidance. Local `build/` outputs are ignored.
