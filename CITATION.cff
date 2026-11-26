@@ -1,0 +1,39 @@
+# Citation metadata (Citation File Format 1.2.0, https://citation-file-format.github.io)
+# To do for the author: add `orcid:` under the author entry, and `doi:` or an
+# `identifiers:` block once an archived release (for example on Zenodo) exists.
+cff-version: 1.2.0
+message: >-
+  If you use this work, please cite it using the metadata in this file.
+type: software
+title: "From Hahn to Twirling in 60 Seconds"
+abstract: >-
+  A short explainer, a perspective with an experimental proposal, and a
+  reproducible finite-pulse Bloch-vector simulation that contrast Hahn-echo
+  refocusing with an {I, X} channel twirl in a Ramsey sequence on the clock
+  transition of a single 25Mg+ ion. For a static detuning the echo rephases the
+  spin, the pooled twirl shows a contrast zero and a phase-reversed revival,
+  and conditioning on the recorded frame bit recovers opposite fringes at the
+  pooled zero. All numbers are model predictions with illustrative parameters;
+  the repository contains no measured data.
+authors:
+  - family-names: Warring
+    given-names: Ulrich
+    affiliation: "Physikalisches Institut, Albert-Ludwigs-Universität Freiburg"
+version: "0.2.0"
+date-released: "2026-11-26"
+repository-code: "https://github.com/uwarring82/from-hahn-to-twirling-in-60-seconds"
+url: "https://github.com/uwarring82/from-hahn-to-twirling-in-60-seconds"
+license:
+  - MIT
+  - CC-BY-4.0
+keywords:
+  - spin echo
+  - Hahn echo
+  - twirling
+  - channel twirl
+  - dynamical decoupling
+  - average Hamiltonian theory
+  - Ramsey interferometry
+  - trapped ions
+  - magnesium ion
+  - open quantum systems

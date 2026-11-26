@@ -1,0 +1,50 @@
+{
+  "@context": "https://w3id.org/codemeta/3.0",
+  "@type": "SoftwareSourceCode",
+  "name": "From Hahn to Twirling in 60 Seconds",
+  "description": "A short explainer, a perspective with an experimental proposal, and a reproducible finite-pulse Bloch-vector simulation that contrast Hahn-echo refocusing with an {I, X} channel twirl in a Ramsey sequence on the clock transition of a single 25Mg+ ion. All numbers are model predictions with illustrative parameters; the repository contains no measured data.",
+  "version": "0.2.0",
+  "dateCreated": "2026-11-26",
+  "dateModified": "2026-11-26",
+  "codeRepository": "https://github.com/uwarring82/from-hahn-to-twirling-in-60-seconds",
+  "issueTracker": "https://github.com/uwarring82/from-hahn-to-twirling-in-60-seconds/issues",
+  "license": [
+    "https://spdx.org/licenses/MIT",
+    "https://spdx.org/licenses/CC-BY-4.0"
+  ],
+  "programmingLanguage": {
+    "@type": "ComputerLanguage",
+    "name": "Python",
+    "version": ">=3.9"
+  },
+  "softwareRequirements": [
+    "numpy",
+    "matplotlib"
+  ],
+  "developmentStatus": "wip",
+  "keywords": [
+    "spin echo",
+    "Hahn echo",
+    "twirling",
+    "channel twirl",
+    "dynamical decoupling",
+    "average Hamiltonian theory",
+    "Ramsey interferometry",
+    "trapped ions",
+    "magnesium ion",
+    "open quantum systems"
+  ],
+  "author": [
+    {
+      "@type": "Person",
+      "givenName": "Ulrich",
+      "familyName": "Warring",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "Physikalisches Institut, Albert-Ludwigs-Universität Freiburg"
+      }
+    }
+  ],
+  "readme": "https://github.com/uwarring82/from-hahn-to-twirling-in-60-seconds/blob/main/README.md",
+  "releaseNotes": "https://github.com/uwarring82/from-hahn-to-twirling-in-60-seconds/blob/main/CHANGELOG.md"
+}
