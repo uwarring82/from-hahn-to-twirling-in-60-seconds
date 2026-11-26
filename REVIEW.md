@@ -78,10 +78,10 @@ Noted, not changed:
 | Findable | Repository description only | `CITATION.cff`, `codemeta.json`, keywords, versioned changelog | Repository is private; no DOI; no ORCID; no GitHub topics |
 | Accessible | Private GitHub repository | Unchanged | Private pending an owner decision on release |
 | Interoperable | Markdown, Python, SVG | Data as CSV with a JSON record of units and columns; references as BibTeX with DOIs; metadata in CFF and CodeMeta | Registry snapshot identified by date, schema and checksum above |
-| Reusable | No licence, no provenance | MIT (code) and CC BY 4.0 (text, figure, data); provenance and AI assistance recorded; tests; tested software versions stated | Licence choice to be confirmed by the author |
+| Reusable | No licence, no provenance | MIT (code) and CC BY 4.0 (text, figure, data); provenance and AI assistance recorded; tests; tested software versions stated | Approved with PR #1 |
 
 ## Open points for the author
 
-1. **Licences.** MIT for code and CC BY 4.0 for text, figure and data are a proposal. Confirm or replace before merging.
+1. **Licences.** MIT for code and CC BY 4.0 for text, figure and data were approved with the merge of PR #1.
 2. **Closing pulse.** Decide which convention the proposal means (item 1) and, if it is the inverse pulse, switch the default and the headline numbers.
 3. **Future release.** Public visibility, a version tag, ORCID attribution and archival deposit are separate owner decisions. The current repository is private.

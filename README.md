@@ -1,5 +1,7 @@
 # From Hahn to Twirling in 60 Seconds
 
+[Team page · join the study, reproduce the baseline and follow open work](TEAM.md)
+
 **What exactly are we averaging?** Start a spin along +X and let a static detuning give it a phase φ in time T. A Hahn echo reverses the sign of the detuning halfway through each shot. The spin accumulates +φ/2 and −φ/2 and refocuses. A channel twirl over {I, X} chooses one frame for the entire free interval and undoes the frame change before readout. The branches acquire +φ and −φ. Their mean transverse coherence is cos φ. At φ = π/2 both branches show full Ramsey fringes; the pooled fringe vanishes. Keep the frame bit and measure Y to see the opposite phases. At φ = π the pooled fringe returns with reversed sign.
 
 ![Predicted signed Ramsey X quadrature versus imposed detuning](echo_twirl.svg)
