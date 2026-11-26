@@ -7,6 +7,7 @@ All notable changes to this repository are recorded here. The format follows [Ke
 - The lead figure now shows signed Y and transverse contrast by frame and after pooling. Conditional Y is the primary statistic; the X comparison remains a refocusing control.
 - Added experimental parameter flags, a scan that follows the selected interrogation time, and branch counts and Y uncertainty in the parameter record.
 - Revised the project entry page (`TEAM.md`) with a prediction exercise, run budget and contribution guidance. Local `build/` outputs are ignored.
+- Detuning labels in the CSV are rounded to 10⁻⁹ Hz, so scans at other T no longer print binary rounding residue. The default CSV is unchanged.
 - The figure uses DejaVu Sans with fixed SVG identifiers and no timestamp. Byte reproducibility is verified for repeated runs in the same software and font environment.
 
 ## [0.2.0] – 2026-11-26

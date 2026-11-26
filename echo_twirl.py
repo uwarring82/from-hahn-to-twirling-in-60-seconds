@@ -173,7 +173,7 @@ def write_csv(path, table):
         writer = csv.writer(handle, lineterminator="\n")
         writer.writerow(COLUMNS)
         for row in table:
-            writer.writerow([str(float(row[0]))]
+            writer.writerow([repr(round(float(row[0]), 9))]
                             + [f"{round(float(x), 6) + 0.0:.6f}" for x in row[1:]])
 
 

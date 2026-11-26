@@ -24,7 +24,7 @@ python echo_twirl.py --outdir build/baseline
 python echo_twirl.py --T 40e-6 --rabi 50000 --area 1.01 --jitter 100 --vis 0.95 --shots 2000 --closing -1 --outdir build/short
 ```
 
-Time is in seconds and drive, detuning and rms jitter are in Hz. The code propagates H = h(drive·X + offset·Z)/2, so φ = 2πfT. A closing sign of +1 repeats the drive phase and −1 reverses it. The short run moves the nominal null to 6.25 kHz. The models assume static detuning within a shot; the clock-state pulse and jitter values are illustrative.
+Time is in seconds and drive, detuning and rms jitter are in Hz. The code propagates H = h(drive·X + offset·Z)/2, so φ = 2πfT. A closing sign of +1 repeats the drive phase and −1 reverses it. The short run moves the nominal null to 6.25 kHz. There the two 10 µs π pulses take half of T, and the model shows it: echo contrast 0.88, a pooled residual of 0.02, and the pooled minimum shifted to about 6.1 kHz. With `--rabi 200000` the echo returns to 0.947 and the pooled residual falls below 0.001. The models assume static detuning within a shot; the clock-state pulse and jitter values are illustrative.
 
 ## What would one run cost?
 
@@ -47,5 +47,7 @@ For a change to code or text, link a pull request to the issue and give the comm
 - **Can we resolve a tilt after randomizing its sign?** For ideal short evolutions with a weak transverse drive, the two orders tilt +X toward ±Z by θ ≃ εδT²/4 (angular frequencies). The individual tilt is order T²; pooling yields a leading transverse contrast loss θ²/2, order T⁴. Determine the smallest T at which each effect is resolvable for a stated shot budget and calibrated pulse error.
 - **How much does the bit tell us?** For ideal commuting dynamics at π/2, the +X output purity is 1 in either branch and 1/2 after pooling. The unitarity of the ideal pooled dephasing map is 1/3; this channel property averages over input directions. What extra preparations and shots would estimate it with a standard error of 0.05? [Wallman et al.](https://doi.org/10.1088/1367-2630/17/11/113020)
 - **Where is the record?** Compare the classical frame bit, a logged detuning monitor and a detected scattered photon. Ion-only measurements cannot discriminate mechanisms that produce identical reduced channels. Choose an auxiliary record, specify a detection model and calculate the record efficiency needed for a stated precision. [Clos et al.](https://doi.org/10.1103/PhysRevLett.112.113003) · [Akerman et al.](https://doi.org/10.1103/PhysRevLett.109.103601) · [Uys et al.](https://doi.org/10.1103/PhysRevLett.105.200401)
+
+A first estimate, however rough, is the useful contribution here. Post one for the first question in [#4](https://github.com/uwarring82/from-hahn-to-twirling-in-60-seconds/issues/4), or open an issue for either of the other two.
 
 For journal club, follow the development from spin rephasing to bilateral twirling, randomized paths on a control group and randomized sensing sequences. [Hahn (1950)](https://doi.org/10.1103/PhysRev.80.580) · [Bennett et al. (1996), §3.1](https://arxiv.org/pdf/quant-ph/9604024v1#page=22) · [Viola and Knill (2005)](https://doi.org/10.1103/PhysRevLett.94.060502) · [Wang et al. (2019)](https://doi.org/10.1103/PhysRevLett.122.200403)

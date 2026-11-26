@@ -75,6 +75,15 @@ def test_cli_scan_and_shot_allocation():
         assert np.allclose(data[:, 0], np.linspace(0, 1 / (2 * params["T"]), 101))
 
 
+def test_csv_detuning_labels_are_clean():
+    """Scans at other T must not leak binary rounding (124.99999999999999)."""
+    with TemporaryDirectory() as temp, redirect_stdout(StringIO()):
+        et.main(["--T", "40e-6", "--no-figure", "--outdir", temp])
+        rows = (Path(temp) / "echo_twirl.csv").read_text().splitlines()[1:]
+    labels = [row.split(",")[0] for row in rows]
+    assert labels[:3] == ["0.0", "125.0", "250.0"] and labels[-1] == "12500.0"
+
+
 def test_closing_pulse_convention_matters():
     """A phase-reversed closing pulse cancels the pulse-area error to first
     order, so the residual at the null is smaller than with X.X."""

@@ -34,6 +34,12 @@ Claude is a tool and not an author. It cannot take responsibility for the work, 
 - It did not choose the licences with any authority. MIT and CC BY 4.0 are a proposal that the author confirms or replaces by merging or editing.
 - It produced no measured data, and the repository contains none.
 
+### Follow-up after 0.2.0
+
+- **Review of the entry page and issues #2–#4** ([issue #5](https://github.com/uwarring82/from-hahn-to-twirling-in-60-seconds/issues/5)). Found that both branches share the same X quadrature, so the X comparison quoted in 0.2.0 is a refocusing control, and that conditional Y carries the claim. The 0.2.0 review had confirmed the X numbers without noticing this. Proposed the branch-resolved figure, the run budget, the parameter flags and the three questions on the entry page, and checked the randomized-order contrast loss θ²/2 numerically.
+- **Edits to pull request #6.** Reviewed the implementation by OpenAI Codex, ran it in a fresh environment, fixed the detuning labels of scans at other T, added a check for them, and added the finite-pulse numbers for the 40 µs example.
+- **An error.** In 0.2.0 Claude changed the Evert et al. figure reference from Fig. 7 to Fig. 4 on the basis of an excerpt from an unversioned copy. The author restored Fig. 7 after checking the versioned full text.
+
 ### Suggested disclosure
 
 If material from this repository enters a manuscript, a statement along these lines covers the assistance recorded here:

@@ -80,6 +80,10 @@ Noted, not changed:
 | Interoperable | Markdown, Python, SVG | Data as CSV with a JSON record of units and columns; references as BibTeX with DOIs; metadata in CFF and CodeMeta | Registry snapshot identified by date, schema and checksum above |
 | Reusable | No licence, no provenance | MIT (code) and CC BY 4.0 (text, figure, data); provenance and AI assistance recorded; tests; tested software versions stated | Approved with PR #1 |
 
+## Follow-up after 0.2.0
+
+The review above confirmed the X-quadrature numbers and did not ask whether they isolate the effect. They do not: both branches have X = cos φ, so pooled X is a plain Ramsey fringe and 0.474 ± 0.012 is a refocusing control. The statistic that carries the claim is the conditional Y difference, 0.941 ± 0.008 for 1,000 shots per branch. See [issue #5](https://github.com/uwarring82/from-hahn-to-twirling-in-60-seconds/issues/5); the figure, text and checks were changed accordingly in pull request #6.
+
 ## Open points for the author
 
 1. **Licences.** MIT for code and CC BY 4.0 for text, figure and data were approved with the merge of PR #1.
