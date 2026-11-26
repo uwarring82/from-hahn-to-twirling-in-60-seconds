@@ -1,0 +1,64 @@
+{
+  "title": "Hahn echo versus {I, X} channel twirl: predicted Bloch vectors",
+  "description": "Finite-pulse Bloch-vector predictions for a spin prepared along +X under a static imposed detuning. Model output, not measured data; all parameters are illustrative.",
+  "generated_by": {
+    "script": "echo_twirl.py",
+    "version": "0.2.0",
+    "python": "3.13.18",
+    "numpy": "2.5.3",
+    "matplotlib": "3.11.2"
+  },
+  "license": "CC-BY-4.0",
+  "data_file": "echo_twirl.csv",
+  "figure_file": "echo_twirl.svg",
+  "parameters": {
+    "T": {
+      "value": 0.0002,
+      "unit": "s"
+    },
+    "rabi": {
+      "value": 50000.0,
+      "unit": "Hz"
+    },
+    "area": {
+      "value": 1.01,
+      "unit": "1"
+    },
+    "jitter": {
+      "value": 100.0,
+      "unit": "Hz"
+    },
+    "vis": {
+      "value": 0.95,
+      "unit": "1"
+    },
+    "shots": {
+      "value": 2000,
+      "unit": "1"
+    },
+    "closing": {
+      "value": 1,
+      "unit": "1"
+    },
+    "gh_nodes": {
+      "value": 24,
+      "unit": "1"
+    }
+  },
+  "columns": {
+    "detuning_hz": "imposed static detuning, Hz",
+    "echo_[xyz]": "Hahn echo Bloch vector",
+    "twirl_[xyz]": "pooled channel twirl, mean of branches I and X",
+    "branch_i_[xyz]": "twirl branch with frame bit I (plain Ramsey)",
+    "branch_x_[xyz]": "twirl branch with frame bit X (pi - free - pi)"
+  },
+  "derived": {
+    "null_detuning_hz": 1250.0,
+    "echo_x_at_null": 0.949316,
+    "twirl_x_at_null": 0.001947,
+    "echo_transverse_at_null": 0.949316,
+    "twirl_transverse_at_null": 0.002513,
+    "echo_minus_twirl_probability_at_null": 0.473684,
+    "projection_noise_standard_error": 0.01172
+  }
+}
