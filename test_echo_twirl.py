@@ -2,7 +2,12 @@
 
 SPDX-License-Identifier: MIT
 """
+import json
+from contextlib import redirect_stdout
 from dataclasses import replace
+from io import StringIO
+from pathlib import Path
+from tempfile import TemporaryDirectory
 
 import numpy as np
 
@@ -43,6 +48,40 @@ def test_branches_have_opposite_y_at_null():
     branch_i, branch_x = et.branches(F0, P)
     assert branch_i[1] > 0.93 and branch_x[1] < -0.93
     assert abs(et.signals(F0, P)[1][0]) < 5e-3
+
+
+def test_conditional_probability_signal_and_precision():
+    difference, se = et.conditional_y(F0, P)
+    assert round(difference, 3) == 0.941 and round(se, 3) == 0.008
+    assert np.isclose(et.conditional_y(F0, replace(P, shots=8000))[1], se / 2)
+    assert np.isclose(et.conditional_y(F0, replace(P, vis=0, shots=5))[1],
+                      np.sqrt(0.25 / 2 + 0.25 / 3))
+
+
+def test_cli_scan_and_shot_allocation():
+    with TemporaryDirectory() as temp, redirect_stdout(StringIO()):
+        et.main(["--T", "0.083", "--rabi", "60000", "--area", "1.02",
+                 "--jitter", "0", "--vis", "0.85", "--shots", "1001",
+                 "--closing", "-1", "--no-figure", "--outdir", temp])
+        out = Path(temp)
+        meta = json.loads((out / "echo_twirl.json").read_text())
+        params = {k: v["value"] for k, v in meta["parameters"].items()}
+        assert params == dict(T=0.083, rabi=60000, area=1.02, jitter=0,
+                              vis=0.85, shots=1001, closing=-1, gh_nodes=24)
+        assert meta["derived"]["conditional_y_branch_shots"] == {"I": 500, "X": 501}
+        assert meta["figure_file"] is None
+        data = np.loadtxt(out / "echo_twirl.csv", delimiter=",", skiprows=1)
+        assert data.shape == (101, 13)
+        assert np.allclose(data[:, 0], np.linspace(0, 1 / (2 * params["T"]), 101))
+
+
+def test_csv_detuning_labels_are_clean():
+    """Scans at other T must not leak binary rounding (124.99999999999999)."""
+    with TemporaryDirectory() as temp, redirect_stdout(StringIO()):
+        et.main(["--T", "40e-6", "--no-figure", "--outdir", temp])
+        rows = (Path(temp) / "echo_twirl.csv").read_text().splitlines()[1:]
+    labels = [row.split(",")[0] for row in rows]
+    assert labels[:3] == ["0.0", "125.0", "250.0"] and labels[-1] == "12500.0"
 
 
 def test_closing_pulse_convention_matters():

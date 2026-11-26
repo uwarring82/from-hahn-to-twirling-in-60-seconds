@@ -6,6 +6,8 @@
 
 OpenAI Codex assisted the initial release by drafting the summary and perspective, preparing and running the numerical model, generating the figure, and locating primary references. For the follow-up on PR #1, Codex checked the versioned Bennett and Evert texts, the Freiburg registry and the Clos paper, reran the eight numerical checks, and edited the documentation. The study reports simulations.
 
+The follow-up review in [issue #5](https://github.com/uwarring82/from-hahn-to-twirling-in-60-seconds/issues/5) identified conditional Y as the experimentally discriminating statistic and proposed the new figure. OpenAI Codex implemented the branch-resolved plot, parameter flags and regression checks, and drafted the corresponding changes to the team page and perspective. After the branch review, Codex updated the development version, regenerated the default outputs, and aligned the team page with the contribution issues.
+
 ## AI assistance
 
 | | |
@@ -31,6 +33,12 @@ Claude is a tool and not an author. It cannot take responsibility for the work, 
 - It did not read the full text of the cited papers. Claims were checked against abstracts, listings and the excerpts returned by web search.
 - It did not choose the licences with any authority. MIT and CC BY 4.0 are a proposal that the author confirms or replaces by merging or editing.
 - It produced no measured data, and the repository contains none.
+
+### Follow-up after 0.2.0
+
+- **Review of the entry page and issues #2–#4** ([issue #5](https://github.com/uwarring82/from-hahn-to-twirling-in-60-seconds/issues/5)). Found that both branches share the same X quadrature, so the X comparison quoted in 0.2.0 is a refocusing control, and that conditional Y carries the claim. The 0.2.0 review had confirmed the X numbers without noticing this. Proposed the branch-resolved figure, the run budget, the parameter flags and the three questions on the entry page, and checked the randomized-order contrast loss θ²/2 numerically.
+- **Edits to pull request #6.** Reviewed the implementation by OpenAI Codex, ran it in a fresh environment, fixed the detuning labels of scans at other T, added a check for them, and added the finite-pulse numbers for the 40 µs example.
+- **An error.** In 0.2.0 Claude changed the Evert et al. figure reference from Fig. 7 to Fig. 4 on the basis of an excerpt from an unversioned copy. The author restored Fig. 7 after checking the versioned full text.
 
 ### Suggested disclosure
 

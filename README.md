@@ -1,14 +1,14 @@
 # From Hahn to Twirling in 60 Seconds
 
-[Team page · join the study, reproduce the baseline and follow open work](TEAM.md)
+[Start here · predict the outcome, reproduce the baseline and explore open work](TEAM.md)
 
 **What exactly are we averaging?** Start a spin along +X and let a static detuning give it a phase φ in time T. A Hahn echo reverses the sign of the detuning halfway through each shot. The spin accumulates +φ/2 and −φ/2 and refocuses. A channel twirl over {I, X} chooses one frame for the entire free interval and undoes the frame change before readout. The branches acquire +φ and −φ. Their mean transverse coherence is cos φ. At φ = π/2 both branches show full Ramsey fringes; the pooled fringe vanishes. Keep the frame bit and measure Y to see the opposite phases. At φ = π the pooled fringe returns with reversed sign.
 
-![Predicted signed Ramsey X quadrature versus imposed detuning](echo_twirl.svg)
+![Predicted transverse contrast and Y quadrature for the echo, individual branches and pooled record](echo_twirl.svg)
 
 ### What the ion would measure
 
-For T = 200 µs the null is at 1.25 kHz. Our finite-pulse simulation predicts a transverse contrast of 94.9% for the echo and 0.25% for the pooled twirl there (signed X quadrature 0.949 and 0.002). These are proposed clock-qubit measurements. The 50 kHz microwave Rabi frequency, +1% pulse amplitude error, 100 Hz rms shot-static jitter and 95% base visibility are illustrative. The model closes each frame with the same π pulse, so pulse-area errors add; reversing the closing pulse phase reverses its drive error, leaves its detuning term unchanged and lowers the pooled residual to 0.04%. The Freiburg registry assigns the 114 µs Ramsey time to the stretch-state microwave transition. The spectroscopy laser is off in the proposed comparison. In the published experiment it was the loss of coherence through scattering that supplied the optical signal. [Freiburg parameters](https://single-25mg-plus-d679f9.pages.uni-freiburg.de/content/experiment/parameters.yaml) · [Clos et al., PRL 112, 113003 (2014), Fig. 2](https://doi.org/10.1103/PhysRevLett.112.113003).
+For T = 200 µs the nominal null is at 1.25 kHz. The predicted branch-resolved signal is **P(+Y | I) − P(+Y | X) = 0.941 ± 0.008** (1,000 shots per branch, one projection-noise standard error). The branch Y quadratures are +0.943 and −0.939. Each branch retains about 94% transverse contrast, yet their equal-weight mixture has contrast 0.0025. In an ideal detuning experiment the branches have identical X, so an X zero crossing alone also occurs in ordinary Ramsey. The echo retains contrast 0.9493. These are model predictions. The 50 kHz microwave Rabi frequency, +1% pulse amplitude error, 100 Hz rms shot-static jitter and 95% base visibility are illustrative. The model closes each frame with the same π pulse, so pulse-area errors add; reversing the closing pulse phase reverses its drive error, leaves its detuning term unchanged and lowers the pooled residual to 0.04%. The Freiburg registry assigns the 114 µs Ramsey time to the stretch-state microwave transition. The spectroscopy laser is off in the proposed comparison. In the published experiment it was the loss of coherence through scattering that supplied the optical signal. [Freiburg parameters](https://single-25mg-plus-d679f9.pages.uni-freiburg.de/content/experiment/parameters.yaml) · [Clos et al., PRL 112, 113003 (2014), Fig. 2](https://doi.org/10.1103/PhysRevLett.112.113003).
 
 ### Three meanings of averaging
 
@@ -37,6 +37,7 @@ With Python 3.9 or later, NumPy and Matplotlib installed (`pip install -r requir
 | File | Content |
 |---|---|
 | `README.md` | The 60-second summary |
+| [TEAM.md](TEAM.md) | Prediction exercise, reproducible commands and experimental tasks |
 | `echo_twirl_perspective.md` | Perspective and experimental proposal (discussion draft) |
 | `echo_twirl.py` | Finite-pulse Bloch model; regenerates the three files below |
 | `echo_twirl.csv` | Predicted Bloch vectors versus detuning: echo, pooled twirl and both twirl branches |

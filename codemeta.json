@@ -3,7 +3,7 @@
   "@type": "SoftwareSourceCode",
   "name": "From Hahn to Twirling in 60 Seconds",
   "description": "A short explainer, a perspective with an experimental proposal, and a reproducible finite-pulse Bloch-vector simulation that contrast Hahn-echo refocusing with an {I, X} channel twirl in a Ramsey sequence on the clock transition of a single 25Mg+ ion. All numbers are model predictions with illustrative parameters; the repository contains no measured data.",
-  "version": "0.2.0",
+  "version": "0.3.0-dev.1",
   "dateCreated": "2026-11-26",
   "dateModified": "2026-11-26",
   "codeRepository": "https://github.com/uwarring82/from-hahn-to-twirling-in-60-seconds",
