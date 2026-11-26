@@ -24,7 +24,7 @@ python echo_twirl.py --outdir build/baseline
 python echo_twirl.py --T 40e-6 --rabi 50000 --area 1.01 --jitter 100 --vis 0.95 --shots 2000 --closing -1 --outdir build/short
 ```
 
-Time is in seconds and drive, detuning and rms jitter are in Hz. The code propagates H = h(drive·X + offset·Z)/2, so φ = 2πfT. A closing sign of +1 repeats the drive phase and −1 reverses it. The short run moves the nominal null to 6.25 kHz. There the two 10 µs π pulses take half of T, and the model shows it: echo contrast 0.88, a pooled residual of 0.02, and the pooled minimum shifted to about 6.1 kHz. With `--rabi 200000` the echo returns to 0.947 and the pooled residual falls below 0.001. The models assume static detuning within a shot; the clock-state pulse and jitter values are illustrative.
+Time is in seconds and drive, detuning and rms jitter are in Hz. The code propagates H = h(drive·X + offset·Z)/2, so φ = 2πfT. A closing sign of +1 repeats the drive phase and −1 reverses it. The short run moves the nominal null to 6.25 kHz. At 50 kHz the two π pulses add 20 µs to the 40 µs of free evolution. The model predicts echo contrast 0.88, a pooled residual of 0.02, and the pooled minimum shifted to about 6.1 kHz. With `--rabi 200000` the echo returns to 0.947 and the pooled residual falls below 0.001. The models assume static detuning within a shot; the clock-state pulse and jitter values are illustrative.
 
 ## What would one run cost?
 
