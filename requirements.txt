@@ -1,0 +1,5 @@
+# Tested on 2026-11-26 with Python 3.13.18, NumPy 2.5.3, Matplotlib 3.11.2
+# and pytest 9.1.1. The lower bounds below are estimates and were not tested.
+numpy>=1.22
+matplotlib>=3.6   # figure only; `python echo_twirl.py --no-figure` runs without it
+pytest>=7         # optional; `python test_echo_twirl.py` runs the same checks
