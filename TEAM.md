@@ -7,7 +7,7 @@
 
 ![Simulated transverse contrast and signed Y quadrature by branch and after pooling](echo_twirl.svg)
 
-With ideal pulses, branch X is Ramsey at −δ. Both branches have the same X quadrature, cos(δT), and opposite Y quadratures, ±sin(δT). At the ideal null δT = π/2, sorting by the frame bit reveals opposite Y signals. The finite-pulse prediction for that measurement is **P(+Y | I) − P(+Y | X) = 0.941 ± 0.008**, with one projection-noise standard error for 1,000 shots per branch. Each branch has about 94% transverse contrast. Their equal-weight average has contrast 0.0025. The 0.474 probability difference between echo and pooled X is a control for refocusing.
+With ideal pulses, branch X is Ramsey at −δ. Both branches have the same X quadrature, cos(δT), and opposite Y quadratures, ±sin(δT). At the ideal null δT = π/2, sorting by the frame bit reveals opposite Y signals. The finite-pulse prediction for that measurement is **P(+Y &#124; I) − P(+Y &#124; X) = 0.941 ± 0.008**, with one projection-noise standard error for 1,000 shots per branch. Each branch has about 94% transverse contrast. Their equal-weight average has contrast 0.0025. The 0.474 probability difference between echo and pooled X is a control for refocusing.
 
 </details>
 
